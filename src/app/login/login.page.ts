@@ -17,7 +17,7 @@ export class LoginPage implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private _router: Router,
+    private router: Router,
     private dataService: DataService,
     private userService: UserService,
     private toastController: ToastController
@@ -32,7 +32,7 @@ export class LoginPage implements OnInit {
 
   ionViewDidEnter() {
     if (this.userService.isLoggedIn()) {
-      this._router.navigate(['tabs'])
+      this.router.navigate(['tabs'])
     }
   }
 
@@ -48,7 +48,7 @@ export class LoginPage implements OnInit {
             this.userService.setUser(res.data)
             this.loginForm.reset()
             this.userService.setLoggedin()
-            this._router.navigate(['/tabs'])
+            this.router.navigate(['/tabs'])
           } else {
             this.loadToast('Invalid credentials', 1000)
           }
