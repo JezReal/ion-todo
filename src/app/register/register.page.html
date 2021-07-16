@@ -1,9 +1,31 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>register</ion-title>
+    <ion-title>Register</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <div id="card-wrapper">
+    <form [formGroup]="registerForm" ngNativeValidate (submit)="onSubmit($event)">
+      <ion-card>
+        <ion-card-content>
+          <div id="inputs">
+            <ion-item>
+              <ion-label position="floating">Email</ion-label>
+              <ion-input type="email" formControlName="email" required></ion-input>
+            </ion-item>
 
+            <ion-item>
+              <ion-label position="floating">Password</ion-label>
+              <ion-input type="password" formControlName="password" required></ion-input>
+            </ion-item>
+          </div>
+
+          <div id="buttons">
+            <ion-button shape="round" expand="full" color="tertiary" type="submit">Register</ion-button>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </form>
+  </div>
 </ion-content>
