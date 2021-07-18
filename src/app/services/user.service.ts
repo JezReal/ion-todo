@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class UserService {
 
-  isUserLoggedIn: boolean = true
+  isUserLoggedIn: boolean = false
 
   userObj = {
     userId: -1,
