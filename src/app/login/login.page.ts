@@ -45,7 +45,11 @@ export class LoginPage implements OnInit {
         .subscribe((res: any) => {
           if (res.data) {
             this.loadToast('Logged in', 1000)
-            this.userService.setUser(res.data)
+            this.userService.setUser({
+              userId: res.data.account_id,
+              userEmail: res.data.email
+            })
+            
             this.loginForm.reset()
             this.userService.setLoggedin()
             this.router.navigate(['/tabs'])
