@@ -28,10 +28,7 @@ export class TodomodalComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if (!this.editTodoId) {
-      console.log('new todo');
-    } else {
-      console.log('edit todo');
+    if (this.editTodoId) {
       this.todo = this.editTodoContent
       this.todoDate = this.editTodoDate
       this.isNewTodo = false
@@ -47,10 +44,8 @@ export class TodomodalComponent implements OnInit {
       })
       .subscribe((res: any) => {
         if (res.data) {
-          console.log(res.data);
           this.dismissModal()
         } else if (res.error) {
-          console.log('Wala');
         }
       });
   }
@@ -64,10 +59,8 @@ export class TodomodalComponent implements OnInit {
       })
       .subscribe((res: any) => {
         if (res.data) {
-          console.log(res.data);
           this.dismissModal()
         } else if (res.error) {
-          console.log('Wala');
         }
       });
     this.popOverController.dismiss()

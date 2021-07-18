@@ -6,20 +6,18 @@ import { Injectable } from '@angular/core';
 })
 export class UserService {
 
-  isUserLoggedIn: boolean = false
-  userId: string
-  userEmail: string
+  isUserLoggedIn: boolean = true
 
   userObj = {
-    userId:'',
+    userId: -1,
     userEmail: '',
   }
 
   constructor() { }
 
   setUser(userObj: any) {
-    this.userId = userObj.userId
-    this.userEmail = userObj.userEmail
+    this.userObj.userId = userObj.userId
+    this.userObj.userEmail = userObj.userEmail
   }
 
   getUser() {
@@ -27,7 +25,7 @@ export class UserService {
   }
 
   clearUser() {
-    this.userObj = {  userId:'', userEmail: '' };
+    this.userObj = {  userId: -1, userEmail: '' };
   }
 
   isLoggedIn(): boolean {
