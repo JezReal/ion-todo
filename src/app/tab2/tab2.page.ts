@@ -10,11 +10,17 @@ import { UserService } from '../services/user.service';
 })
 export class Tab2Page {
 
+  email: string
+
   constructor(
     public alertController: AlertController,
     private userService: UserService,
     private router: Router
   ) {}
+
+  ionViewDidEnter() {
+    this.email = this.userService.getUser().userEmail
+  }
 
   async loadAlert() {
     const alert = await this.alertController.create({
@@ -41,5 +47,7 @@ export class Tab2Page {
 
     await alert.present()
   }
+
+
 
 }
