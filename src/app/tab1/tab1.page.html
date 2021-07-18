@@ -11,19 +11,22 @@
 
 <ion-content [fullscreen]="true">
 
-  <ion-card id="card">
-    <ion-card-header>
-      <ion-card-title>Card Title</ion-card-title>
-    </ion-card-header>
+  <div id="card-container" *ngFor="let todo of todoList">
+    <ion-card class="card">
+      <ion-card-header>
+        <ion-card-title>{{ todo. todo}}</ion-card-title>
+      </ion-card-header>
+    
+      <ion-card-content>
+        {{ todo.date }}
+      </ion-card-content>
+    </ion-card>
+  </div>
+
   
-    <ion-card-content>
-      Keep close to Nature's heart... and break clear away, once in awhile,
-      and climb a mountain or spend a week in the woods. Wash your spirit clean.
-    </ion-card-content>
-  </ion-card>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button>
+    <ion-fab-button (click)="addTodo()">
       <ion-icon :icon="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>  
