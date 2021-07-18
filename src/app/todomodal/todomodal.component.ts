@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ModalController } from '@ionic/angular';
+import { ModalController, PopoverController } from '@ionic/angular';
 import { DataService } from '../services/data.service';
 import { UserService } from '../services/user.service';
 
@@ -12,16 +12,31 @@ import { UserService } from '../services/user.service';
 export class TodomodalComponent implements OnInit {
 
   todoDate: string
-  todo: string 
+  todo: string
+
+  @Input() editTodoDate: any
+  @Input() editTodoContent: any
+  @Input() editTodoId: any
+
+  isNewTodo: boolean = true
 
   constructor(
     private modalController: ModalController,
     private dataService: DataService,
     private userService: UserService,
-    private router: Router
+    private popOverController: PopoverController
   ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (!this.editTodoId) {
+      console.log('new todo');
+    } else {
+      console.log('edit todo');
+      this.todo = this.editTodoContent
+      this.todoDate = this.editTodoDate
+      this.isNewTodo = false
+    }
+  }
 
   addTodo() {
     this.dataService
@@ -40,8 +55,28 @@ export class TodomodalComponent implements OnInit {
       });
   }
 
-  dismissModal() {
-    this.modalController.dismiss()
+  updateTodo() {
+    this.dataService
+      .update({
+        'todo_id': this.editTodoId,
+        'date': this.todoDate,
+        'todo': this.todo
+      })
+      .subscribe((res: any) => {
+        if (res.data) {
+          console.log(res.data);
+          this.dismissModal()
+        } else if (res.error) {
+          console.log('Wala');
+        }
+      });
+    this.popOverController.dismiss()
   }
 
+  dismissModal() {
+    this.modalController.dismiss()
+    if (this.editTodoId) {
+      this.popOverController.dismiss()
+    }
+  }
 }

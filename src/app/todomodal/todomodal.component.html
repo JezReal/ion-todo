@@ -12,7 +12,8 @@
   </div>
 
   <div id="buttons">
-    <ion-button shape="round" expand="full" color="primary" (click)="addTodo()">Add</ion-button>
+    <ion-button *ngIf="!isNewTodo" shape="round" expand="full" color="primary" (click)="updateTodo()">Update</ion-button>
+    <ion-button *ngIf="isNewTodo" shape="round" expand="full" color="primary" (click)="addTodo()">Add</ion-button>
     <ion-button shape="round" expand="full" color="tertiary" (click)="dismissModal()">Cancel</ion-button>
   </div>
 </div>

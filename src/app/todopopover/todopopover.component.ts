@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { PopoverController } from '@ionic/angular';
+import { ModalController, PopoverController } from '@ionic/angular';
 import { DataService } from '../services/data.service';
+import { TodomodalComponent } from '../todomodal/todomodal.component';
 
 @Component({
   selector: 'app-todopopover',
@@ -13,7 +14,8 @@ export class TodopopoverComponent implements OnInit {
 
   constructor(
     private dataService: DataService,
-    private popOverController: PopoverController
+    private popOverController: PopoverController,
+    private modalController: ModalController,
   ) { }
 
   ngOnInit() {
@@ -34,8 +36,17 @@ export class TodopopoverComponent implements OnInit {
       this.popOverController.dismiss()
   }
 
-  editTodo() {
+  async editTodo() {
+    const modal = await this.modalController.create({
+      component: TodomodalComponent,
+      componentProps: {
+        'editTodoId': this.todo.todo_id,
+        'editTodoDate': this.todo.date,
+        'editTodoContent': this.todo.todo,
+      }
+    })
 
+    return await modal.present()
   }
 
 }
