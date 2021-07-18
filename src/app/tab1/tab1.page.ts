@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController, ModalController } from '@ionic/angular';
+import { AlertController, ModalController, PopoverController } from '@ionic/angular';
 import { DataService } from '../services/data.service';
 import { UserService } from '../services/user.service';
 import { TodomodalComponent } from '../todomodal/todomodal.component';
+import { TodopopoverComponent } from '../todopopover/todopopover.component';
 
 @Component({
   selector: 'app-tab1',
@@ -32,6 +33,7 @@ export class Tab1Page {
     private router: Router,
     private dataService: DataService,
     private modalController: ModalController,
+    private popOverController: PopoverController
   ) {}
 
   ionViewDidEnter() {
@@ -86,6 +88,24 @@ export class Tab1Page {
     })
 
     return await modal.present()
+  }
+
+  async loadPopOver(todo: any, event: any) {    
+    let todoId = todo.todo_id
+    let todoContent = todo.todo
+    let todoDate = todo.date
+
+    const popover = await this.popOverController.create({
+      component: TodopopoverComponent,
+      componentProps: {todo},
+      event: event
+    })
+    
+    popover.onDidDismiss().then(_ => {
+      this.getAll()
+    })
+
+    await popover.present()
   }
 
   getAll() {
